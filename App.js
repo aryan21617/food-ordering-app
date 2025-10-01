@@ -10,6 +10,12 @@ import logo from "./images.png";
  *  - search bar
  *  - restaurant Container
  *    - restaurant Card
+ *      - image
+ *      - name
+ *      - cusines
+ *      - rating  
+ *      - timing
+ *      - offers
  * Footer
  *  - links
  *  - copyright info
@@ -36,27 +42,62 @@ const Header = () => {
 }
 
 const RestaurantCard = () => {
+  return (
+    <div className="restaurant-card">
+      <img className="restaurant-logo" src="https://ministryofcurry.com/wp-content/uploads/2024/06/chicken-biryani-5.jpg" alt="restaurant-logo" />
+      <h3>Meghana Foods</h3>
+      <h4>Biryani, North Indian, Mughlai</h4>
+      <h4>⭐ 4.2</h4>
+      <h4>30 mins</h4>
+      <h4>₹500 for one</h4>
+      <h4>50% OFF up to ₹100</h4>
+    </div>
+  )
 }
 
-// const Body = () => {
-//   return (
-//     <div className="body">
-//       <div className="search">
-//         <input type="text" className="search-box" />
-//         <button className="search-btn">Search</button>
-//       </div>
-//       <div className="restaurant-container">
-//         <RestaurantCard />
-//       </div>
-//     </div>
-//   )
-// }
+const Body = () => {
+  return (
+    <div className="body">
+      <div className="search">
+        <input type="text" className="search-box" />
+        <button className="search-btn">Search</button>
+      </div>
+      <div className="restaurant-container">
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />  
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+      </div>
+    </div>
+  )
+}
+
+const Footer = () => {
+  return (
+    <div className="footer">
+      <h4>© 2024 Pet-Pooja</h4>
+    </div>
+  )
+}
 
 const AppLayout = () =>  {
   return (
     <div className="app">
       <Header />
-      
+      <Body />
+      <Footer />
     </div>
   )
 }
