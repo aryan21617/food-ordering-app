@@ -35,11 +35,28 @@ const Header = () => {
   )
 }
 
+const RestaurantCard = () => {
+}
+
+// const Body = () => {
+//   return (
+//     <div className="body">
+//       <div className="search">
+//         <input type="text" className="search-box" />
+//         <button className="search-btn">Search</button>
+//       </div>
+//       <div className="restaurant-container">
+//         <RestaurantCard />
+//       </div>
+//     </div>
+//   )
+// }
 
 const AppLayout = () =>  {
   return (
     <div className="app">
       <Header />
+      
     </div>
   )
 }
