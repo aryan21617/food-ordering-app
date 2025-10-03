@@ -3,7 +3,18 @@ import { resList } from "../utils/mockData";
 import { useState } from "react";
 
 const Body = () => {
-  const [listOfRestaurants, setListOfRestaurants] = useState(resList);
+  //const [listOfRestaurants, setListOfRestaurants] = useState(resList);
+
+   //or 
+
+  // const arr = useState(resList);
+  // const [listOfRestaurants, setListOfRestaurants] = arr;
+
+  //or
+
+  const arr = useState(resList);
+  const listOfRestaurants = arr[0];
+  const setListOfRestaurants = arr[1];
 
   return (
     <div className="body">
