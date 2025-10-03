@@ -1,20 +1,25 @@
 import RestaurantCard from "./RestaurantCard";
 import { resList } from "../utils/mockData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Body = () => {
-  //const [listOfRestaurants, setListOfRestaurants] = useState(resList);
+  const [listOfRestaurants, setListOfRestaurants] = useState(resList || []);
 
-   //or 
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  // const arr = useState(resList);
-  // const [listOfRestaurants, setListOfRestaurants] = arr;
+  const fetchData = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+    );
+    const json = await data.json();
+    console.log(json);
 
-  //or
-
-  const arr = useState(resList);
-  const listOfRestaurants = arr[0];
-  const setListOfRestaurants = arr[1];
+    setListOfRestaurants(
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+  };
 
   return (
     <div className="body">
@@ -23,7 +28,6 @@ const Body = () => {
         <button
           className="search-btn"
           onClick={() => {
-            // Corrected the arrow function syntax here
             const filteredList = listOfRestaurants.filter(
               (res) => res.info.avgRating > 4.5
             );
@@ -33,12 +37,11 @@ const Body = () => {
           Top Rated Restaurants
         </button>
       </div>
+
       <div className="restaurant-container">
-        {
-          listOfRestaurants.map((restaurant) => (
-            <RestaurantCard key={restaurant.info.id} resData={restaurant} />
-          ))
-        }
+        {listOfRestaurants.map((restaurant) => (
+          <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+        ))}
       </div>
     </div>
   );
