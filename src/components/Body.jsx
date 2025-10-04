@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
-  const [listOfRestaurants, setListOfRestaurants] = useState([]);
+  const [listOfRestaurants, setListOfRestaurants] = useState(resList);
 
   // useEffect(() => {
   //   fetchData();
@@ -22,11 +22,11 @@ const Body = () => {
   //   );
   // };
 
-  if(listOfRestaurants.length === 0 ) {
-    return <Shimmer />;
-  }
 
-  return (
+  //Conditional Rendering
+  
+
+  return listOfRestaurants.length === 0 ? <Shimmer /> :(
     <div className="body">
       <div className="search">
         <input type="text" className="search-box" />
