@@ -4,32 +4,37 @@ import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
-  const [listOfRestaurants, setListOfRestaurants] = useState(resList);
+  const [listOfRestaurants, setListOfRestaurants] = useState([]);
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  const [searchText, setSearchText] = useState("");
 
-  // const fetchData = async () => {
-  //   const data = await fetch(
-  //     "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
-  //   );
-  //   const json = await data.json();
-  //   console.log(json);
+  useEffect(() => {
+    setTimeout(() => {
+      setListOfRestaurants(resList);
+    }, 1000);
+  }, []);
 
-  //   setListOfRestaurants(
-  //     json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-  //   );
-  // };
-
-
-  //Conditional Rendering
-  
+  console.log("Body Rendered");
+//whenever state variables changes ,react triggers a reconcilation cycle(re-render the component)
 
   return listOfRestaurants.length === 0 ? <Shimmer /> :(
     <div className="body">
       <div className="search">
-        <input type="text" className="search-box" />
+        <input type="text" className="search-box" 
+          value={searchText}
+          onChange={(e) => {
+            setSearchText(e.target.value);
+          }}
+        />
+        <button 
+          className="search-btn"
+          onClick={() => {
+            const filteredList = resList.filter((res) =>
+              res.info.name.toLowerCase().includes(searchText.toLowerCase())
+            );
+            setListOfRestaurants(filteredList);
+          }}
+        >Search</button>
         <button
           className="search-btn"
           onClick={() => {
