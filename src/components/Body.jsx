@@ -4,20 +4,21 @@ import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
-  const [listOfRestaurants, setListOfRestaurants] = useState([]);
+  const [listOfRestaurants, setListOfRestaurants] = useState(resList);
+  const [fiteredRestaurants, setFilteredRestaurants] = useState([]);
 
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     setTimeout(() => {
-      setListOfRestaurants(resList);
+      setFilteredRestaurants(resList);
     }, 1000);
   }, []);
 
   console.log("Body Rendered");
 //whenever state variables changes ,react triggers a reconcilation cycle(re-render the component)
 
-  return listOfRestaurants.length === 0 ? <Shimmer /> :(
+  return fiteredRestaurants.length === 0 ? <Shimmer /> :(
     <div className="body">
       <div className="search">
         <input type="text" className="search-box" 
@@ -32,7 +33,7 @@ const Body = () => {
             const filteredList = resList.filter((res) =>
               res.info.name.toLowerCase().includes(searchText.toLowerCase())
             );
-            setListOfRestaurants(filteredList);
+            setFilteredRestaurants(filteredList);
           }}
         >Search</button>
         <button
@@ -41,7 +42,7 @@ const Body = () => {
             const filteredList = listOfRestaurants.filter(
               (res) => res.info.avgRating > 4.5
             );
-            setListOfRestaurants(filteredList);
+            setFilteredRestaurants(filteredList);
           }}
         >
           Top Rated Restaurants
@@ -49,7 +50,7 @@ const Body = () => {
       </div>
 
       <div className="restaurant-container">
-        {listOfRestaurants.map((restaurant) => (
+        {fiteredRestaurants.map((restaurant) => (
           <RestaurantCard key={restaurant.info.id} resData={restaurant} />
         ))}
       </div>
