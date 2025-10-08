@@ -4,18 +4,29 @@ import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
-  const [listOfRestaurants, setListOfRestaurants] = useState(resList);
+  const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [fiteredRestaurants, setFilteredRestaurants] = useState([]);
-
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
-    setTimeout(() => {
-      setFilteredRestaurants(resList);
-    }, 1000);
+    fetchData();
   }, []);
 
-  console.log("Body Rendered");
+  const fetchData = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9966135&lng=77.5920581&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
+    const json = await data.json();
+    const restaurants =json?.data?.cards?.find((items) => 
+      items?.card?.card?.id?.includes("restaurant_grid_listing_v2")
+    ).card?.card?.gridElements?.infoWithStyle?.restaurants;
+
+    setListOfRestaurants(restaurants);
+    setFilteredRestaurants(restaurants);
+
+    
+  };
+
 //whenever state variables changes ,react triggers a reconcilation cycle(re-render the component)
 
   return fiteredRestaurants.length === 0 ? <Shimmer /> :(
@@ -30,7 +41,7 @@ const Body = () => {
         <button 
           className="search-btn"
           onClick={() => {
-            const filteredList = resList.filter((res) =>
+            const filteredList = listOfRestaurants.filter((res) =>
               res.info.name.toLowerCase().includes(searchText.toLowerCase())
             );
             setFilteredRestaurants(filteredList);
